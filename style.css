@@ -1,58 +1,92 @@
-/* Reset básico */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Fondo y tipografía */
+/* === Fondo y estilos generales === */
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top left, #0f0c29, #302b63, #24243e);
   color: #fff;
   line-height: 1.6;
-  padding: 20px;
+  overflow-x: hidden;
 }
 
-/* Encabezado */
+/* === Contenedor === */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+/* === Títulos con efecto neón === */
 h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2.5rem;
-  color: #00c6ff;
+  font-size: 3rem;
+  color: #00f5ff;
+  text-shadow: 0 0 5px #00f5ff, 0 0 10px #00f5ff, 0 0 20px #00f5ff;
+  animation: glow 2s ease-in-out infinite alternate;
 }
 
-/* Subtítulos */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #00f5ff, 0 0 10px #00f5ff, 0 0 20px #00f5ff;
+  }
+  to {
+    text-shadow: 0 0 20px #00f5ff, 0 0 40px #00f5ff, 0 0 60px #00f5ff;
+  }
+}
+
 h2 {
-  color: #ffd700;
-  margin-top: 20px;
-  border-bottom: 2px solid #00c6ff;
-  padding-bottom: 5px;
+  font-size: 2rem;
+  margin-top: 50px;
+  color: #ff00ff;
+  text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff;
 }
 
-/* Proyectos */
-ul {
-  list-style: none;
-  margin-top: 10px;
+/* === Párrafos === */
+p {
+  font-size: 1.2rem;
+  color: #dcdcdc;
+  max-width: 700px;
+  margin: 10px auto;
 }
 
-ul li {
-  background: rgba(255, 255, 255, 0.1);
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 10px;
-  transition: transform 0.3s;
+/* === Sección proyectos === */
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 30px;
 }
 
-ul li:hover {
-  transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.2);
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 25px;
+  border-radius: 15px;
+  width: 280px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  backdrop-filter: blur(10px);
 }
 
-/* Footer */
-footer {
-  margin-top: 40px;
-  text-align: center;
-  font-size: 0.9rem;
-  opacity: 0.8;
+.card:hover {
+  transform: translateY(-12px) scale(1.05);
+  box-shadow: 0 0 15px #00f5ff, 0 0 30px #ff00ff;
+}
+
+/* === Botones con glow === */
+a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(90deg, #00f5ff, #ff00ff);
+  border-radius: 30px;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+a:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #00f5ff, 0 0 25px #ff00ff;
 }
