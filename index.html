@@ -1,148 +1,180 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mi Portafolio</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      background: #0f0f0f;
-      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
     }
 
     header {
+      width: 100%;
+      padding: 20px;
       text-align: center;
-      padding: 2rem;
-      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      background: linear-gradient(90deg, #0061ff, #60efff);
+      color: #fff;
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-
-    header p {
-      margin: 0.5rem 0 0;
-      font-size: 1.2rem;
-      color: #eee;
-    }
-
-    section {
-      padding: 2rem;
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    section h2 {
-      text-align: center;
-      margin-bottom: 2rem;
-      font-size: 2rem;
-      color: #00f5ff;
+    h2 {
+      margin: 20px 0;
+      font-size: 1.5rem;
+      color: #60efff;
     }
 
     .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
+      gap: 20px;
+      width: 90%;
+      max-width: 1000px;
     }
 
     .card {
-      background: #1c1c1c;
-      padding: 1.5rem;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0, 245, 255, 0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
+      background: rgba(15, 15, 15, 0.85);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+      box-shadow: 0 0 35px rgba(0, 255, 255, 0.6);
     }
 
     .card h3 {
-      margin-top: 0;
-      color: #ff77ff;
+      margin-bottom: 10px;
+      color: #00ffe7;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      margin-bottom: 15px;
     }
 
     .btn {
       display: inline-block;
-      margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
-      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      padding: 10px 20px;
+      border-radius: 25px;
+      background: linear-gradient(90deg, #00dbde, #fc00ff);
       color: white;
+      font-weight: bold;
       text-decoration: none;
-      border-radius: 10px;
-      transition: background 0.3s;
+      transition: opacity 0.3s ease;
     }
 
     .btn:hover {
-      background: linear-gradient(90deg, #2575fc, #6a11cb);
+      opacity: 0.8;
     }
 
-    /* Animación neón decorativa */
-    @keyframes pulse {
-      0% { text-shadow: 0 0 5px #ff00ff, 0 0 10px #00f5ff; }
-      50% { text-shadow: 0 0 20px #ff00ff, 0 0 30px #00f5ff; }
-      100% { text-shadow: 0 0 5px #ff00ff, 0 0 10px #00f5ff; }
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
-    }
-
-    .decorativo {
-      text-align: center;
-      animation: float 4s ease-in-out infinite;
-    }
-
-    .decorativo h3 {
-      color: #00f5ff;
-    }
-
-    .decorativo p:last-child {
-      font-size: 1.2rem;
-      margin-top: 10px;
-      color: #ff77ff;
-      animation: pulse 2s infinite;
+    /* 🎇 Canvas interactivo */
+    #particles {
+      width: 100%;
+      height: 300px;
+      background: rgba(10, 10, 10, 0.6);
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(255, 0, 200, 0.4);
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Mi Portafolio</h1>
-    <p>Bienvenido a mis proyectos 🚀</p>
-  </header>
+  <header>Mi Portafolio 🚀</header>
+  <h2>Proyectos destacados</h2>
 
-  <section id="projects">
-    <h2>Proyectos destacados</h2>
-    <div class="projects">
-      
-      <!-- Card decorativa -->
-      <div class="card decorativo">
-        <h3>✨ Bienvenido</h3>
-        <p>Explora mis proyectos y conoce lo que estoy creando.</p>
-        <p>#KeepCoding 💻</p>
-      </div>
+  <div class="projects">
+    <!-- 🎇 Animación en lugar de "Portafolio personal" -->
+    <canvas id="particles"></canvas>
 
-      <!-- Calculadora -->
-      <div class="card">
-        <h3>Calculadora</h3>
-        <p>Proyecto pequeño en HTML/CSS/JS para mostrar DOM y lógica básica (sumas, restas, etc.).</p>
-        <a class="btn" href="https://jsebas-dev.github.io/Calculadora/" target="_blank" rel="noopener">Ver calculadora</a>
-      </div>
-
-      <!-- To Do List -->
-      <div class="card">
-        <h3>To-Do List</h3>
-        <p>App para gestionar tareas. Añade, marca y elimina tus pendientes fácilmente.</p>
-        <a class="btn" href="https://jsebas-dev.github.io/To-Do-list./" target="_blank" rel="noopener">Abrir To-Do List</a>
-      </div>
+    <div class="card">
+      <h3>Calculadora</h3>
+      <p>Proyecto de calculadora futurista con UI en neón y validación segura.</p>
+      <a href="https://jsebas-dev.github.io/Calculadora/" class="btn">Abrir Calculadora</a>
     </div>
-  </section>
+
+    <div class="card">
+      <h3>To-Do List</h3>
+      <p>App sencilla para organizar tareas con almacenamiento local.</p>
+      <a href="https://jsebas-dev.github.io/To-Do-List/" class="btn">Abrir To-Do List</a>
+    </div>
+  </div>
+
+  <script>
+    // 🎇 Partículas interactivas
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    let particles = [];
+
+    class Particle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 5 + 2;
+        this.speedX = Math.random() * 3 - 1.5;
+        this.speedY = Math.random() * 3 - 1.5;
+        this.color = hsl(${Math.random() * 360}, 100%, 50%);
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.size *= 0.95;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function handleParticles() {
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+        if (particles[i].size < 0.5) {
+          particles.splice(i, 1);
+          i--;
+        }
+      }
+    }
+
+    canvas.addEventListener("mousemove", (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = event.clientX - rect.left;
+      const mouseY = event.clientY - rect.top;
+      for (let i = 0; i < 5; i++) {
+        particles.push(new Particle(mouseX, mouseY));
+      }
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      handleParticles();
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.addEventListener("resize", () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    });
+  </script>
 </body>
 </html>
