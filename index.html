@@ -5,48 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portafolio - Juan Sebastián</title>
   <style>
-    /* Estilo general */
-    body, html {
+    * {
       margin: 0;
       padding: 0;
-      height: 100%;
+      box-sizing: border-box;
+    }
+    body {
       font-family: 'Poppins', sans-serif;
       color: #fff;
-      overflow-x: hidden;
-    }
-
-    /* Fondo de estrellas animadas */
-    body {
-      background: #000;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: black;
+      overflow: hidden;
       position: relative;
     }
     canvas {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       z-index: -1;
     }
-
-    header {
-      padding: 40px 20px;
-      text-align: center;
-    }
-    header h1 {
+    h1 {
       font-size: 3rem;
       background: linear-gradient(90deg, #ff00cc, #3333ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
     }
-    header p {
+    p {
       font-size: 1.2rem;
       color: #bbb;
+      margin-bottom: 30px;
     }
-
     .buttons {
-      margin: 40px 0;
       display: flex;
-      justify-content: center;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 15px;
     }
     .buttons a {
@@ -63,26 +61,22 @@
       transform: scale(1.05);
       box-shadow: 0px 6px 20px rgba(51, 51, 255, 0.7);
     }
-
     footer {
-      margin-top: 50px;
-      padding: 20px;
+      position: absolute;
+      bottom: 15px;
       font-size: 0.9rem;
       color: #888;
-      text-align: center;
     }
   </style>
 </head>
 <body>
-  <!-- Fondo animado -->
+  <!-- Fondo de estrellas -->
   <canvas id="stars"></canvas>
 
-  <header>
-    <h1>Juan Sebastián</h1>
-    <p>Desarrollador en formación | Futuro referente del software</p>
-  </header>
+  <h1>Juan Sebastián</h1>
+  <p>Desarrollador en formación | Futuro referente del software</p>
 
-  <section class="buttons">
+  <div class="buttons">
     <a href="https://jsebas-dev.github.io/Portafolio/">Ver Portafolio</a>
     <a href="https://jsebas-dev.github.io/Calculator/">Calculadora</a>
     <a href="https://jsebas-dev.github.io/To-Do-list./">To-Do List</a>
@@ -90,13 +84,13 @@
     <a href="https://github.com/Jsebas-Dev">GitHub</a>
     <a href="https://www.upwork.com/freelancers/~015cc338127b5c33e6">Upwork</a>
     <a href="mailto:sebas07sx@gmail.com">Email</a>
-  </section>
+  </div>
 
   <footer>
     © 2025 Juan Sebastián - Todos los derechos reservados
   </footer>
 
-  <!-- Script para estrellas animadas -->
+  <!-- Animación estrellas -->
   <script>
     const canvas = document.getElementById('stars');
     const ctx = canvas.getContext('2d');
@@ -104,7 +98,7 @@
     canvas.height = window.innerHeight;
 
     let stars = [];
-    const numStars = 200;
+    const numStars = 150;
 
     for (let i = 0; i < numStars; i++) {
       stars.push({
