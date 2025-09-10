@@ -1,145 +1,198 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Portafolio - Juan Sebastián</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Poppins', sans-serif;
-      color: #fff;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background: black;
-      overflow: hidden;
-      position: relative;
-    }
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
+    /* ===== contenedor partículas (fondo) ===== */
+    #particles-js{
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       z-index: -1;
+      background: radial-gradient(circle at 10% 10%, #0f0c29 0%, #302b63 40%, #24243e 100%);
     }
-    h1 {
-      font-size: 3rem;
-      background: linear-gradient(90deg, #ff00cc, #3333ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
+
+    *{box-sizing:border-box; margin:0; padding:0}
+    body{
+      font-family: 'Poppins', sans-serif;
+      color:#e6f6ff;
+      min-height:100vh;
     }
-    p {
-      font-size: 1.2rem;
-      color: #bbb;
-      margin-bottom: 30px;
+
+    .container{
+      max-width:1000px;
+      margin:0 auto;
+      padding:48px 20px;
+      position:relative;
+      z-index:1;
     }
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
+
+    .hero{
+      text-align:center;
+      margin-bottom:30px;
     }
-    .buttons a {
-      text-decoration: none;
-      background: linear-gradient(45deg, #ff00cc, #3333ff);
-      padding: 12px 24px;
-      border-radius: 12px;
-      color: #fff;
-      font-weight: bold;
-      transition: 0.3s;
-      box-shadow: 0px 4px 15px rgba(255, 0, 204, 0.5);
+
+    .avatar{
+      width:110px;
+      height:110px;
+      border-radius:999px;
+      margin:0 auto 16px auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:36px;
+      color:#051014;
+      background: linear-gradient(135deg,#00f5ff,#ff00ff);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6), 0 0 12px rgba(0,245,255,0.15);
     }
-    .buttons a:hover {
-      transform: scale(1.05);
-      box-shadow: 0px 6px 20px rgba(51, 51, 255, 0.7);
+
+    h1{
+      font-size:2.6rem;
+      color:#00f5ff;
+      text-shadow: 0 0 8px rgba(0,245,255,0.12);
+      margin-bottom:6px;
     }
-    footer {
-      position: absolute;
-      bottom: 15px;
-      font-size: 0.9rem;
-      color: #888;
+
+    .subtitle{ color:#dcdcdc; opacity:0.9; margin-bottom:12px; }
+    .lead{ max-width:720px; margin:0 auto; color:#cdeef6; opacity:0.9; }
+
+    section { margin-top:38px; }
+    h2 {
+      font-size:1.6rem;
+      color:#ff77ff;
+      text-shadow:0 0 6px rgba(255,0,255,0.12);
+      margin-bottom:14px;
+    }
+
+    .projects{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.06);
+      padding:18px;
+      border-radius:14px;
+      backdrop-filter: blur(6px);
+      transition: transform .35s ease, box-shadow .35s ease;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    }
+
+    .card:hover{
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.55), 0 0 18px rgba(0,245,255,0.06);
+    }
+
+    .card h3{ margin-bottom:8px; color:#ffffff; }
+    .card p{ color: #d7f7ff; opacity:0.9; font-size:.98rem; }
+
+    .btn {
+      display:inline-block;
+      margin-top:12px;
+      padding:10px 16px;
+      border-radius:30px;
+      text-decoration:none;
+      font-weight:700;
+      color:#051014;
+      background: linear-gradient(90deg,#00f5ff,#ff00ff);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.35), 0 0 12px rgba(0,245,255,0.12);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover{ transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.55), 0 0 20px rgba(255,0,255,0.12); }
+
+    .contacts{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
+
+    footer{ text-align:center; margin-top:44px; color:#bcd; opacity:0.85; font-size:.95rem; }
+
+    @media (max-width:520px){
+      h1{ font-size:2rem; }
+      .avatar{ width:86px; height:86px; font-size:28px; }
+      .container{ padding:28px 14px; }
     }
   </style>
 </head>
 <body>
-  <!-- Fondo de estrellas -->
-  <canvas id="stars"></canvas>
 
-  <h1>Juan Sebastián</h1>
-  <p>Desarrollador en formación | Futuro referente del software</p>
+  <div id="particles-js"></div>
 
-  <div class="buttons">
-    <a href="https://jsebas-dev.github.io/Portafolio/">Ver Portafolio</a>
-    <a href="https://jsebas-dev.github.io/Calculator/">Calculadora</a>
-    <a href="https://jsebas-dev.github.io/To-Do-list./">To-Do List</a>
-    <a href="https://www.linkedin.com/in/juan-sebastian-0b82a3383">LinkedIn</a>
-    <a href="https://github.com/Jsebas-Dev">GitHub</a>
-    <a href="https://www.upwork.com/freelancers/~015cc338127b5c33e6">Upwork</a>
-    <a href="mailto:sebas07sx@gmail.com">Email</a>
+  <div class="container">
+    <header class="hero">
+      <div class="avatar">JS</div>
+      <h1>Juan Sebastián</h1>
+      <p class="subtitle">Estudiante de Análisis y Desarrollo de Software · Front-End Developer · Freelancer</p>
+      <p class="lead">Construyo páginas web, landings y pequeñas aplicaciones. Entrego rápido, limpio y con diseño llamativo. Soy joven, aprendo rápido y trabajo con disciplina.</p>
+    </header>
+
+    <section id="projects">
+      <h2>Proyectos destacados</h2>
+      <div class="projects">
+        <div class="card">
+          <h3>Portafolio personal</h3>
+          <p>Este mismo sitio: HTML + CSS + Partículas. Aquí muestro mis trabajos y contacto.</p>
+          <a class="btn" href="https://jsebas-dev.github.io/portafolio/" target="_blank" rel="noopener">Ver portafolio</a>
+        </div>
+
+        <div class="card">
+          <h3>Calculadora</h3>
+          <p>Proyecto pequeño en HTML/CSS/JS para mostrar DOM y lógica básica.</p>
+          <a class="btn" href="https://jsebas-dev.github.io/Calculadora/" target="_blank" rel="noopener">Ver calculadora</a>
+        </div>
+
+        <div class="card">
+          <h3>To-Do List</h3>
+          <p>App para gestionar tareas. Proyecto con HTML, CSS y JS.</p>
+          <a class="btn" href="https://jsebas-dev.github.io/To-Do-list./" target="_blank" rel="noopener">Ver To-Do List</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contacto</h2>
+      <div class="contacts">
+        <a class="btn" href="https://www.linkedin.com/in/juan-sebastian-0b82a3383" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/Jsebas-Dev" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="mailto:sebas07sx@gmail.com">Email</a>
+        <a class="btn" href="https://www.upwork.com/freelancers/~015cc338127b5c33e6" target="_blank" rel="noopener">Upwork</a>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 Juan Sebastián — Hecho con ❤ · Versión: neon-v1
+    </footer>
   </div>
 
-  <footer>
-    © 2025 Juan Sebastián - Todos los derechos reservados
-  </footer>
-
-  <!-- Animación estrellas -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    const canvas = document.getElementById('stars');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let stars = [];
-    const numStars = 150;
-
-    for (let i = 0; i < numStars; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 1.5,
-        dx: (Math.random() - 0.5) * 0.5,
-        dy: (Math.random() - 0.5) * 0.5
-      });
-    }
-
-    function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "white";
-      for (let star of stars) {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function updateStars() {
-      for (let star of stars) {
-        star.x += star.dx;
-        star.y += star.dy;
-        if (star.x < 0 || star.x > canvas.width) star.dx *= -1;
-        if (star.y < 0 || star.y > canvas.height) star.dy *= -1;
-      }
-    }
-
-    function animate() {
-      drawStars();
-      updateStars();
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    window.addEventListener("resize", () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 70, "density": { "enable": true, "value_area": 800 }},
+        "color": { "value": ["#00f5ff","#ff00ff","#66ffb3"] },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.6, "random": true },
+        "size": { "value": 3, "random": true },
+        "line_linked": { "enable": true, "distance": 160, "color": "#00f5ff", "opacity": 0.15, "width": 1 },
+        "move": { "enable": true, "speed": 1.8, "out_mode": "out" }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": { "enable": true, "mode": "repulse" },
+          "onclick": { "enable": true, "mode": "push" },
+          "resize": true
+        },
+        "modes": { "repulse": { "distance": 100, "duration": 0.4 }, "push": { "particles_nb": 4 }}
+      },
+      "retina_detect": true
     });
   </script>
 </body>
