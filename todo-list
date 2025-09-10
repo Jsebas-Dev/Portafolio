@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>To-Do List Exótica — Sebas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#07071a; --bg2:#0b0b1a;
+      --accent1:#00f5ff; --accent2:#ff2fff; --muted:#cfeff7;
+      --glass: rgba(255,255,255,0.04);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      min-height:100vh;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: radial-gradient(circle at 10% 10%, #071025 0%, #11102a 35%, #0b0b1a 100%);
+      color:#eaf9ff;
+      display:flex; align-items:center; justify-content:center;
+      padding:28px;
+    }
+
+    /* container */
+    .app {
+      width: min(920px,96vw);
+      display:grid;
+      grid-template-columns: 1fr 380px;
+      gap:28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+      border:1px solid rgba(255,255,255,0.05);
+      padding:26px;
+      border-radius:16px;
+      backdrop-filter: blur(8px) saturate(120%);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+    }
+    @media (max-width:900px){ .app{grid-template-columns:1fr; padding:18px} }
+
+    /* header left */
+    .left header{ margin-bottom:12px; display:flex; align-items:center; gap:12px}
+    .mark{
+      width:56px;height:56px;border-radius:12px;
+      background: linear-gradient(135deg,var(--accent1),var(--accent2));
+      display:flex;align-items:center;justify-content:center;font-family:'Orbitron'; color:#021014; font-weight:700;
+      font-size:20px;
+    }
+    .title h1{ font-size:20px; color:var(--accent1); margin-bottom:2px }
+    .title p{ font-size:13px; color:var(--muted) }
+
+    /* input area */
+    .add {
+      display:flex; gap:12px; margin-top:12px;
+    }
+    .add input{
+      flex:1; padding:14px 16px; border-radius:12px; border:1px solid var(--glass);
+      background: rgba(255,255,255,0.02); color:inherit; font-size:15px;
+    }
+    .add button{
+      background: linear-gradient(90deg,var(--accent1),var(--accent2)); border:none; color:#021014;
+      padding:12px 18px; border-radius:12px; font-weight:700; cursor:pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    /* list */
+    .list {
+      margin-top:18px;
+      display:flex; flex-direction:column; gap:12px;
+      max-height:56vh; overflow:auto; padding-right:6px;
+    }
+    .item{
+      display:flex; align-items:center; gap:12px; justify-content:space-between;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px; padding:12px; border:1px solid rgba(255,255,255,0.04);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .item:hover{ transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.45) }
+    .leftcol{ display:flex; gap:12px; align-items:center; flex:1 }
+    .chk { width:18px; height:18px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); display:inline-block; cursor:pointer; position:relative; }
+    .chk.checked{ background: linear-gradient(90deg,var(--accent1),var(--accent2)); border:none; }
+    .text { font-size:15px; color:var(--muted); max-width:70% }
+    .text.done{ text-decoration: line-through; opacity:0.6; color:#9fdfe9 }
+
+    .actions { display:flex; gap:8px; align-items:center }
+    .iconbtn{ background:transparent; border:1px solid rgba(255,255,255,0.04); padding:8px; border-radius:10px; cursor:pointer; color:var(--muted) }
+    .iconbtn:hover{ transform:translateY(-3px) }
+
+    /* right panel stats */
+    .right {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px; padding:18px; border:1px solid rgba(255,255,255,0.04);
+      display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:flex-start;
+    }
+    .stat { width:100%; display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-radius:10px; background:rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.03) }
+    .stat strong{ color:var(--accent1) }
+
+    .filters { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; justify-content:center }
+    .chip{ padding:8px 12px; border-radius:999px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03); cursor:pointer }
+    .chip.active{ background: linear-gradient(90deg,var(--accent1),var(--accent2)); color:#021014; font-weight:700 }
+
+    /* empty */
+    .empty{ text-align:center; padding:20px; color:#9fdfe9; opacity:.85 }
+
+    /* small */
+    @media (max-width:900px){
+      .app{grid-template-columns:1fr}
+      .right{order:-1}
+    }
+  </style>
+</head>
+<body>
+  <div class="app" role="application" aria-label="To Do List exótica">
+    <div class="left">
+      <header>
+        <div class="mark">TD</div>
+        <div class="title">
+          <h1>To-Do List Exótica</h1>
+          <p>Organiza tareas con estilo — guarda, filtra y marca completadas.</p>
+        </div>
+      </header>
+
+      <div class="add" aria-hidden="false">
+        <input id="taskInput" placeholder="Escribe una tarea y presiona Add o Enter" aria-label="Nueva tarea"/>
+        <button id="addBtn" aria-label="Agregar tarea">Add</button>
+      </div>
+
+      <div class="list" id="list" aria-live="polite"></div>
+
+      <div style="margin-top:14px; display:flex; gap:8px; justify-content:flex-end;">
+        <button class="iconbtn" id="clearDone">Borrar completadas</button>
+        <button class="iconbtn" id="clearAll">Borrar todo</button>
+      </div>
+    </div>
+
+    <aside class="right" aria-hidden="false">
+      <div class="stat"><span>Tareas totales</span><strong id="total">0</strong></div>
+      <div class="stat"><span>Completadas</span><strong id="done">0</strong></div>
+      <div class="stat"><span>Activas</span><strong id="active">0</strong></div>
+
+      <div style="width:100%; text-align:center; margin-top:8px;">
+        <div class="filters">
+          <div class="chip active" data-filter="all">All</div>
+          <div class="chip" data-filter="active">Active</div>
+          <div class="chip" data-filter="done">Done</div>
+        </div>
+      </div>
+
+      <div style="width:100%; margin-top:12px; text-align:center;">
+        <small style="color:#9fdfe9; opacity:.9">Datos guardados en localStorage · Funciona offline</small>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    // ToDo List exótica - JS
+    (function(){
+      // DOM
+      const input = document.getElementById('taskInput');
+      const addBtn = document.getElementById('addBtn');
+      const listEl = document.getElementById('list');
+      const totalEl = document.getElementById('total');
+      const doneEl = document.getElementById('done');
+      const activeEl = document.getElementById('active');
+      const clearDoneBtn = document.getElementById('clearDone');
+      const clearAllBtn = document.getElementById('clearAll');
+      const filterChips = document.querySelectorAll('.chip');
+
+      // state
+      let tasks = JSON.parse(localStorage.getItem('tasks_v1') || '[]');
+      let filter = 'all';
+
+      // utils
+      function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+
+      function save(){
+        localStorage.setItem('tasks_v1', JSON.stringify(tasks));
+        render();
+      }
+
+      function addTask(text){
+        if(!text || !text.trim()) return;
+        tasks.unshift({ id: uid(), text: text.trim(), done:false, created: Date.now() });
+        save();
+      }
+
+      function toggleDone(id){
+        tasks = tasks.map(t => t.id === id ? {...t, done: !t.done} : t );
+        save();
+      }
+
+      function removeTask(id){
+        tasks = tasks.filter(t => t.id !== id);
+        save();
+      }
+
+      function clearDone(){
+        tasks = tasks.filter(t => !t.done);
+        save();
+      }
+
+      function clearAll(){
+        if(!confirm('¿Borrar todas las tareas?')) return;
+        tasks = [];
+        save();
+      }
+
+      function editTask(id, newText){
+        tasks = tasks.map(t => t.id === id ? {...t, text: newText} : t);
+        save();
+      }
+
+      // render
+      function render(){
+        // stats
+        const total = tasks.length;
+        const doneCount = tasks.filter(t => t.done).length;
+        const activeCount = total - doneCount;
+        totalEl.textContent = total;
+        doneEl.textContent = doneCount;
+        activeEl.textContent = activeCount;
+
+        // filter
+        let visible = tasks;
+        if(filter === 'active') visible = tasks.filter(t => !t.done);
+        if(filter === 'done') visible = tasks.filter(t => t.done);
+
+        // list
+        listEl.innerHTML = '';
+        if(visible.length === 0){
+          const empty = document.createElement('div');
+          empty.className = 'empty';
+          empty.textContent = 'No hay tareas aquí — agrega la primera 💡';
+          listEl.appendChild(empty);
+          return;
+        }
+
+        visible.forEach(t => {
+          const it = document.createElement('div');
+          it.className = 'item';
+          // left
+          const left = document.createElement('div'); left.className = 'leftcol';
+          const chk = document.createElement('div'); chk.className = 'chk' + (t.done ? ' checked' : ''); chk.setAttribute('role','button'); chk.title='Marcar tarea';
+          chk.addEventListener('click', ()=> toggleDone(t.id));
+          const txt = document.createElement('div'); txt.className = 'text' + (t.done ? ' done' : ''); txt.textContent = t.text;
+          // double-click to edit
+          txt.addEventListener('dblclick', ()=> {
+            const newText = prompt('Editar tarea', t.text);
+            if(newText !== null) editTask(t.id, newText);
+          });
+          left.appendChild(chk); left.appendChild(txt);
+
+          // actions
+          const actions = document.createElement('div'); actions.className='actions';
+          const del = document.createElement('button'); del.className='iconbtn'; del.title='Eliminar';
+          del.textContent = '🗑'; del.addEventListener('click', ()=> removeTask(t.id));
+          const time = document.createElement('div'); time.style.fontSize='12px'; time.style.opacity='.7';
+          time.textContent = new Date(t.created).toLocaleString();
+          actions.appendChild(time); actions.appendChild(del);
+
+          it.appendChild(left); it.appendChild(actions);
+          listEl.appendChild(it);
+        });
+      }
+
+      // events
+      addBtn.addEventListener('click', ()=> { addTask(input.value); input.value=''; input.focus(); });
+      input.addEventListener('keydown', (e)=> { if(e.key === 'Enter') { addTask(input.value); input.value=''; } });
+
+      clearDoneBtn.addEventListener('click', clearDone);
+      clearAllBtn.addEventListener('click', clearAll);
+
+      filterChips.forEach(c => c.addEventListener('click', ()=>{
+        filterChips.forEach(x => x.classList.remove('active'));
+        c.classList.add('active');
+        filter = c.getAttribute('data-filter');
+        render();
+      }));
+
+      // init
+      render();
+
+      // expose for debug (optional)
+      window._todo = { tasks, save };
+    })();
+  </script>
+</body>
+</html>
