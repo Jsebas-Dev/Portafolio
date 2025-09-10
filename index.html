@@ -1,254 +1,82 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Portafolio - Juan Sebastián</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
   <style>
-    /* ===== contenedor partículas (fondo) ===== */
-    #particles-js{
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1; /* queda detrás del contenido */
-      background: radial-gradient(circle at 10% 10%, #0f0c29 0%, #302b63 40%, #24243e 100%);
-    }
-
-    /* ===== reset y tipografía ===== */
-    *{box-sizing:border-box; margin:0; padding:0}
-    body{
+    body {
+      margin: 0;
       font-family: 'Poppins', sans-serif;
-      color:#e6f6ff;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      min-height:100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      text-align: center;
     }
-
-    /* ===== layout ===== */
-    .container{
-      max-width:1000px;
-      margin:0 auto;
-      padding:48px 20px;
-      position:relative;
-      z-index:1; /* sobre las partículas */
+    header {
+      padding: 60px 20px;
     }
-
-    .hero{
-      text-align:center;
-      margin-bottom:30px;
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
     }
-
-    .avatar{
-      width:110px;
-      height:110px;
-      border-radius:999px;
-      margin:0 auto 16px auto;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
-      font-size:36px;
-      color:#051014;
-      background: linear-gradient(135deg,#00f5ff,#ff00ff);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.6), 0 0 12px rgba(0,245,255,0.15);
+    header p {
+      font-size: 1.2rem;
+      color: #ddd;
     }
-
-    h1{
-      font-size:2.6rem;
-      color:#00f5ff;
-      text-shadow: 0 0 8px rgba(0,245,255,0.12);
-      margin-bottom:6px;
-    }
-
-    .subtitle{
-      color:#dcdcdc;
-      opacity:0.9;
-      margin-bottom:12px;
-    }
-
-    .lead{
-      max-width:720px;
-      margin:0 auto;
-      color:#cdeef6;
-      opacity:0.9;
-    }
-
-    /* ===== secciones ===== */
-    section { margin-top:38px; }
-
-    h2 {
-      font-size:1.6rem;
-      color:#ff77ff;
-      text-shadow:0 0 6px rgba(255,0,255,0.12);
-      margin-bottom:14px;
-    }
-
-    /* ===== proyectos ===== */
-    .projects{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-      gap:20px;
-    }
-
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.06);
-      padding:18px;
-      border-radius:14px;
-      backdrop-filter: blur(6px);
-      transition: transform .35s ease, box-shadow .35s ease;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-    }
-
-    .card:hover{
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.55), 0 0 18px rgba(0,245,255,0.06);
-    }
-
-    .card h3{ margin-bottom:8px; color:#ffffff; }
-    .card p{ color: #d7f7ff; opacity:0.9; font-size:.98rem; }
-
-    /* ===== botones neón ===== */
     .btn {
-      display:inline-block;
-      margin-top:12px;
-      padding:10px 16px;
-      border-radius:30px;
-      text-decoration:none;
-      font-weight:700;
-      color:#051014;
-      background: linear-gradient(90deg,#00f5ff,#ff00ff);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.35), 0 0 12px rgba(0,245,255,0.12);
-      transition: transform .2s ease, box-shadow .2s ease;
+      display: inline-block;
+      margin: 10px 5px;
+      padding: 15px 25px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, #ff416c, #ff4b2b);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .btn:hover{ transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.55), 0 0 20px rgba(255,0,255,0.12); }
-
-    /* ===== contacto ===== */
-    .contacts{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
-
-    /* ===== footer ===== */
-    footer{ text-align:center; margin-top:44px; color:#bcd; opacity:0.85; font-size:.95rem; }
-
-    /* ===== responsive tweaks ===== */
-    @media (max-width:520px){
-      h1{ font-size:2rem; }
-      .avatar{ width:86px; height:86px; font-size:28px; }
-      .container{ padding:28px 14px; }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+    }
+    section {
+      padding: 40px 20px;
+    }
+    footer {
+      background: rgba(0,0,0,0.8);
+      padding: 20px;
+      margin-top: 40px;
+    }
+    footer a {
+      margin: 0 8px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer a:hover {
+      color: #ff416c;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Juan Sebastián</h1>
+    <p>Desarrollador Web | Proyectos futuristas y funcionales</p>
+    <a href="https://jsebas-dev.github.io/portafolio/" target="_blank" class="btn">Ver Portafolio</a>
+    <a href="https://jsebas-dev.github.io/portafolio/calculadora/" target="_blank" class="btn">Calculadora</a>
+    <a href="https://jsebas-dev.github.io/To-Do-list./" target="_blank" class="btn">To Do List</a>
+  </header>
 
-  <!-- lienzo de partículas (queda detrás gracias a z-index:-1) -->
-  <div id="particles-js"></div>
+  <section>
+    <h2>Contacto y redes</h2>
+    <a href="https://www.linkedin.com/in/juan-sebastian-0b82a3383" target="_blank" class="btn">LinkedIn</a>
+    <a href="https://github.com/Jsebas-Dev" target="_blank" class="btn">GitHub</a>
+    <a href="mailto:sebas07sx@gmail.com" class="btn">Email</a>
+    <a href="https://www.upwork.com/freelancers/~015cc338127b5c33e6" target="_blank" class="btn">Upwork</a>
+  </section>
 
-  <div class="container">
-    <header class="hero">
-      <div class="avatar">JS</div>
-      <h1>Juan Sebastián</h1>
-      <p class="subtitle">Estudiante de Análisis y Desarrollo de Software · Front-End Developer · Freelancer</p>
-      <p class="lead">Construyo páginas web, landings y pequeñas aplicaciones. Entrego rápido, limpio y con diseño llamativo. Soy joven, aprendo rápido y trabajo con disciplina.</p>
-    </header>
-
-    <section id="projects">
-      <h2>Proyectos destacados</h2>
-      <div class="projects">
-        <div class="card">
-          <h3>Portafolio personal</h3>
-          <p>Este mismo sitio: HTML + CSS + Partículas. Aquí muestro mis trabajos y contacto.</p>
-          <a class="btn" href="https://TU_USUARIO.github.io/portafolio/" target="_blank" rel="noopener">Ver portafolio</a>
-        </div>
-
-        <div class="card">
-          <h3>Calculadora</h3>
-          <p>Proyecto pequeño en HTML/CSS/JS para mostrar DOM y lógica básica (sumas, restas, etc.).</p>
-          <a class="btn" href="https://TU_USUARIO.github.io/calculadora/" target="_blank" rel="noopener">Ver calculadora</a>
-        </div>
-
-        <div class="card">
-          <h3>Próximo: To-Do List</h3>
-          <p>Será una app para gestionar tareas (CRUD en frontend). En proceso.</p>
-          <a class="btn" href="#" onclick="alert('En desarrollo :)')">Próximamente</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact">
-      <h2>Contacto</h2>
-      <div class="contacts">
-        <!-- Reemplaza los placeholders por tus links reales -->
-        <a class="btn" href="https://linkedin.com/in/TU_USUARIO" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn" href="https://github.com/TU_USUARIO" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn" href="mailto:TU_EMAIL@example.com">Email</a>
-        <a class="btn" href="https://www.upwork.com/freelancers/~TU_UPWORK_ID" target="_blank" rel="noopener">Upwork</a>
-      </div>
-    </section>
-
-    <footer>
-      © 2025 Juan Sebastián — Hecho con ❤ · Versión: neon-v1
-    </footer>
-  </div>
-
-  <!-- particles.js (CDN) -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
-  <script>
-    /* Configuración de partículas (neón) */
-    particlesJS("particles-js", {
-      "particles": {
-        "number": {
-          "value": 70,
-          "density": { "enable": true, "value_area": 800 }
-        },
-        "color": { "value": ["#00f5ff","#ff00ff","#66ffb3"] },
-        "shape": { "type": "circle" },
-        "opacity": {
-          "value": 0.6,
-          "random": true,
-          "anim": { "enable": false }
-        },
-        "size": {
-          "value": 3,
-          "random": true,
-          "anim": { "enable": false }
-        },
-        "line_linked": {
-          "enable": true,
-          "distance": 160,
-          "color": "#00f5ff",
-          "opacity": 0.15,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 1.8,
-          "direction": "none",
-          "random": false,
-          "straight": false,
-          "out_mode": "out",
-          "bounce": false,
-          "attract": { "enable": false }
-        }
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": { "enable": true, "mode": "repulse" },
-          "onclick": { "enable": true, "mode": "push" },
-          "resize": true
-        },
-        "modes": {
-          "repulse": { "distance": 100, "duration": 0.4 },
-          "push": { "particles_nb": 4 }
-        }
-      },
-      "retina_detect": true
-    });
-  </script>
+  <footer>
+    <p>© 2025 Juan Sebastián — Todos los derechos reservados</p>
+  </footer>
 </body>
 </html>
