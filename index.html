@@ -1,82 +1,152 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portafolio - Juan Sebastián</title>
   <style>
-    body {
+    /* Estilo general */
+    body, html {
       margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: #fff;
-      text-align: center;
+      overflow-x: hidden;
     }
+
+    /* Fondo de estrellas animadas */
+    body {
+      background: #000;
+      position: relative;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
     header {
-      padding: 60px 20px;
+      padding: 40px 20px;
+      text-align: center;
     }
     header h1 {
       font-size: 3rem;
-      margin-bottom: 10px;
+      background: linear-gradient(90deg, #ff00cc, #3333ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     header p {
       font-size: 1.2rem;
-      color: #ddd;
+      color: #bbb;
     }
-    .btn {
-      display: inline-block;
-      margin: 10px 5px;
-      padding: 15px 25px;
+
+    .buttons {
+      margin: 40px 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .buttons a {
+      text-decoration: none;
+      background: linear-gradient(45deg, #ff00cc, #3333ff);
+      padding: 12px 24px;
       border-radius: 12px;
-      background: linear-gradient(145deg, #ff416c, #ff4b2b);
       color: #fff;
-      font-size: 1rem;
       font-weight: bold;
-      text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: 0.3s;
+      box-shadow: 0px 4px 15px rgba(255, 0, 204, 0.5);
     }
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+    .buttons a:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 6px 20px rgba(51, 51, 255, 0.7);
     }
-    section {
-      padding: 40px 20px;
-    }
+
     footer {
-      background: rgba(0,0,0,0.8);
+      margin-top: 50px;
       padding: 20px;
-      margin-top: 40px;
-    }
-    footer a {
-      margin: 0 8px;
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    footer a:hover {
-      color: #ff416c;
+      font-size: 0.9rem;
+      color: #888;
+      text-align: center;
     }
   </style>
 </head>
 <body>
+  <!-- Fondo animado -->
+  <canvas id="stars"></canvas>
+
   <header>
     <h1>Juan Sebastián</h1>
-    <p>Desarrollador Web | Proyectos futuristas y funcionales</p>
-    <a href="https://jsebas-dev.github.io/portafolio/" target="_blank" class="btn">Ver Portafolio</a>
-    <a href="https://jsebas-dev.github.io/portafolio/calculadora/" target="_blank" class="btn">Calculadora</a>
-    <a href="https://jsebas-dev.github.io/To-Do-list./" target="_blank" class="btn">To Do List</a>
+    <p>Desarrollador en formación | Futuro referente del software</p>
   </header>
 
-  <section>
-    <h2>Contacto y redes</h2>
-    <a href="https://www.linkedin.com/in/juan-sebastian-0b82a3383" target="_blank" class="btn">LinkedIn</a>
-    <a href="https://github.com/Jsebas-Dev" target="_blank" class="btn">GitHub</a>
-    <a href="mailto:sebas07sx@gmail.com" class="btn">Email</a>
-    <a href="https://www.upwork.com/freelancers/~015cc338127b5c33e6" target="_blank" class="btn">Upwork</a>
+  <section class="buttons">
+    <a href="https://jsebas-dev.github.io/Portafolio/">Ver Portafolio</a>
+    <a href="https://jsebas-dev.github.io/Calculator/">Calculadora</a>
+    <a href="https://jsebas-dev.github.io/To-Do-list./">To-Do List</a>
+    <a href="https://www.linkedin.com/in/juan-sebastian-0b82a3383">LinkedIn</a>
+    <a href="https://github.com/Jsebas-Dev">GitHub</a>
+    <a href="https://www.upwork.com/freelancers/~015cc338127b5c33e6">Upwork</a>
+    <a href="mailto:sebas07sx@gmail.com">Email</a>
   </section>
 
   <footer>
-    <p>© 2025 Juan Sebastián — Todos los derechos reservados</p>
+    © 2025 Juan Sebastián - Todos los derechos reservados
   </footer>
+
+  <!-- Script para estrellas animadas -->
+  <script>
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let stars = [];
+    const numStars = 200;
+
+    for (let i = 0; i < numStars; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5,
+        dx: (Math.random() - 0.5) * 0.5,
+        dy: (Math.random() - 0.5) * 0.5
+      });
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      for (let star of stars) {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function updateStars() {
+      for (let star of stars) {
+        star.x += star.dx;
+        star.y += star.dy;
+        if (star.x < 0 || star.x > canvas.width) star.dx *= -1;
+        if (star.y < 0 || star.y > canvas.height) star.dy *= -1;
+      }
+    }
+
+    function animate() {
+      drawStars();
+      updateStars();
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
 </body>
 </html>
